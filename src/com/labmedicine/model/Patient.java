@@ -1,39 +1,24 @@
 package com.labmedicine.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Patient extends Person {
 
-  Long idPatient;
-  String emergencyContact;
-  Allergy allergy;
-  CareList careList;
-  String healthInsurance;
-  Integer insuranceNumber;
-  LocalDate insuranceDate;
-  String Status;
+  private Long idPatient;
+  private String emergencyContact;
+  private List<Allergy> allergy;
+  private List<CareList> careList;
+  private String healthInsurance;
+  private Integer insuranceNumber;
+  private LocalDate insuranceDate;
+  private String Status;
 
   public Patient() {
   }
 
-  public Patient(Long idPatient, String emergencyContact, String healthInsurance, Integer insuranceNumber, LocalDate insuranceDate, String status) {
-    this.idPatient = idPatient;
-    this.emergencyContact = emergencyContact;
-    this.healthInsurance = healthInsurance;
-    this.insuranceNumber = insuranceNumber;
-    this.insuranceDate = insuranceDate;
-    Status = status;
-  }
-
   public Long getIdPatient() {
     return idPatient;
-  }
-
-  public Patient(String healthInsurance, Integer insuranceNumber, String status) {
-    this.healthInsurance = healthInsurance;
-    this.insuranceNumber = insuranceNumber;
-    this.insuranceDate = insuranceDate;
-    Status = status;
   }
 
   public void setIdPatient(Long idPatient) {
@@ -48,19 +33,19 @@ public class Patient extends Person {
     this.emergencyContact = emergencyContact;
   }
 
-  public Allergy getAllergy() {
+  public List<Allergy> getAllergy() {
     return allergy;
   }
 
-  public void setAllergy(Allergy allergy) {
+  public void setAllergy(List<Allergy> allergy) {
     this.allergy = allergy;
   }
 
-  public CareList getCareList() {
+  public List<CareList> getCareList() {
     return careList;
   }
 
-  public void setCareList(CareList careList) {
+  public void setCareList(List<CareList> careList) {
     this.careList = careList;
   }
 

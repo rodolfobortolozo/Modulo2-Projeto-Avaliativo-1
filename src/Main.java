@@ -18,7 +18,9 @@ public class Main {
       case 1:
         person = new Patient();
         patientView.patientMenu();
-
+      default:
+        System.out.println("Opção Inválida");
+        menu.mainMenu();
     }
 
 

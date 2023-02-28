@@ -2,7 +2,7 @@ package com.labmedicine.model;
 
 import java.time.LocalDate;
 
-public class Person {
+public abstract class Person {
   Long idPerson;
   String name;
   String gender;

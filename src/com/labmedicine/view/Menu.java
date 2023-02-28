@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
 
   public  void mainMenu(){
-    System.out.println("Bem vindo ao sistema NOME_DO_SISTEMA");
+    System.out.println("Bem vindo ao sistema LABMedicine LTDA");
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastro de Paciente");
     System.out.println("2. Cadastro de Enfermeiro");
@@ -21,7 +21,7 @@ public class Menu {
     try {
       Scanner scanner = new Scanner(System.in);
       System.out.print("Número selecionado: ");
-      Integer op = scanner.nextInt();
+      Integer op = Integer.parseInt(scanner.nextLine());
       return op;
 
     }catch (InputMismatchException e){
