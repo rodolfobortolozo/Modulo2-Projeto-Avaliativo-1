@@ -50,11 +50,11 @@ public class NurseView {
         addNurse();
         break;
       case 2:
-        getAllPatient();
+        getAllNurse();
         nurseMenu();
         break;
       case 3:
-        getPatientbyName();
+        getNursebyName();
         nurseMenu();
       case 9:
         menu.mainMenu();
@@ -92,23 +92,23 @@ public class NurseView {
     nurseMenu();
   }
 
-  private void getAllPatient(){
+  private void getAllNurse(){
     List<Nurse> nurseList = nurseController.getAll();
-    renderizePatient(nurseList);
+    renderizeNurse(nurseList);
 
   }
 
-  private void getPatientbyName(){
+  private void getNursebyName(){
     Scanner sc = new Scanner(System.in);
     Nurse nurse = new Nurse();
     System.out.print("Digite o nome:");
     nurse.setName(sc.nextLine());
     List<Nurse> patientList = nurseController.getNursebyName(nurse);
-    renderizePatient(patientList);
+    renderizeNurse(patientList);
 
   }
 
-  private void renderizePatient(List<Nurse> nurseList){
+  private void renderizeNurse(List<Nurse> nurseList){
     System.out.println("**Enfermeiros Cadastrados**");
     for(int i=0; i<nurseList.size();i++){
       System.out.print("Nome: ");
