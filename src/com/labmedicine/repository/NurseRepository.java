@@ -31,11 +31,11 @@ public class NurseRepository implements PersonInterface<Nurse> {
   public List<Nurse> getByName(Nurse nurse) {
 
     Predicate<Nurse> filterNurse = p -> p.getName().equalsIgnoreCase(nurse.getName());
-    List<Nurse> patientFiltered = arrNurse.stream()
+    List<Nurse> nurseFiltered = arrNurse.stream()
             .filter(filterNurse)
             .collect(Collectors.toList());
 
-    return patientFiltered;
+    return nurseFiltered;
   }
 
 }
