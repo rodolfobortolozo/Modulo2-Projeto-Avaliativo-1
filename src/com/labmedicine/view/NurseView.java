@@ -3,8 +3,6 @@ package com.labmedicine.view;
 import com.labmedicine.controller.NurseController;
 import com.labmedicine.model.Nurse;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -19,35 +17,24 @@ public class NurseView {
   }
 
   public void nurseMenu(){
+    Scanner scanner = new Scanner(System.in);
+    Integer op = null;
+
     System.out.println("**Menu Enfermeiro**");
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
     System.out.println("3. Pesquisar Enfermeiro");
-    System.out.println("9. Sair");
-    Integer op = optionNurse();
-    actions(op);
-  }
-
-  public Integer optionNurse() {
-    Integer op;
-    try {
-      Scanner scanner = new Scanner(System.in);
-      System.out.print("Opção: ");
-      op = Integer.parseInt(scanner.nextLine());
-      return op;
-
-    } catch (InputMismatchException e) {
-      System.out.println("Opção Inválida, tente novamente");
-      optionNurse();
-      return null;
+    System.out.println("9. Voltar para o Menu Principal");
+    try{
+      op = scanner.nextInt();
+    }catch (InputMismatchException e){
+      opcaoInvalida();
     }
-  }
-  private void actions (Integer op){
-
     switch (op){
       case 1:
         addNurse();
+        nurseMenu();
         break;
       case 2:
         getAllNurse();
@@ -56,16 +43,21 @@ public class NurseView {
       case 3:
         getNursebyName();
         nurseMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
+      default:
+        opcaoInvalida();
     }
   }
 
   private void addNurse(){
     Nurse nurse = new Nurse();
     Scanner sc = new Scanner(System.in);
+    InputDate dt = new InputDate();
 
+    nurse.setId(returnLastIdNurse());
     System.out.println("Informe o nome do Enfermeiro");
     nurse.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
@@ -73,10 +65,7 @@ public class NurseView {
     System.out.println("2 - Feminino");
     nurse.setGender(sc.nextLine());
     System.out.println("Informe a Data de Nascimento");
-
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    nurse.setDateBirth(LocalDate.parse(sc.nextLine(), dtf));
-
+    nurse.setDateBirth(dt.inputDate());
     System.out.println("Informe o cpf");
     nurse.setCpf(sc.nextLine());
     System.out.println("Informe o telefone");
@@ -98,6 +87,10 @@ public class NurseView {
 
   }
 
+  private Long returnLastIdNurse(){
+    return Long.valueOf(nurseController.getAll().size() + 1);
+  }
+
   private void getNursebyName(){
     Scanner sc = new Scanner(System.in);
     Nurse nurse = new Nurse();
@@ -113,8 +106,11 @@ public class NurseView {
     for(int i=0; i<nurseList.size();i++){
       System.out.print("Nome: ");
       System.out.println(nurseList.get(i).getName());
-
-
     }
+  }
+
+  public void opcaoInvalida(){
+    System.out.println("Opção Inválida, tente novamente");
+    nurseMenu();
   }
 }

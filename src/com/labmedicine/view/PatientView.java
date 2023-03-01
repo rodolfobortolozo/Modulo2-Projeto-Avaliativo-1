@@ -19,35 +19,24 @@ public class PatientView {
   }
 
   public void patientMenu(){
+    Scanner scanner = new Scanner(System.in);
+    Integer op = null;
+    
     System.out.println("**Menu Paciente**");
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
     System.out.println("3. Pesquisar Paciente");
-    System.out.println("9. Sair");
-    Integer op = optionPatient();
-    actions(op);
-  }
-
-  public Integer optionPatient() {
-    Integer op;
-    try {
-      Scanner scanner = new Scanner(System.in);
-      System.out.print("Opção: ");
-      op = Integer.parseInt(scanner.nextLine());
-      return op;
-
-    } catch (InputMismatchException e) {
-      System.out.println("Opção Inválida, tente novamente");
-      optionPatient();
-      return null;
+    System.out.println("9. Voltar para o Menu Principal");
+    try{
+      op = scanner.nextInt();
+    }catch (InputMismatchException e){
+      opcaoInvalida();
     }
-  }
-  private void actions (Integer op){
-
     switch (op){
       case 1:
         addPatient();
+        patientMenu();
         break;
       case 2:
         getAllPatient();
@@ -56,27 +45,29 @@ public class PatientView {
       case 3:
         getPatientbyName();
         patientMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
+      default:
+        opcaoInvalida();
     }
   }
 
   private void addPatient(){
     Patient patient = new Patient();
     Scanner sc = new Scanner(System.in);
+    InputDate dt = new InputDate();
 
+    patient.setId(returnLastIdPatient());
     System.out.println("Informe o nome do Paciente");
     patient.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
-    System.out.println("1 - Masculino");
-    System.out.println("2 - Feminino");
+    System.out.println("M - Masculino");
+    System.out.println("F - Feminino");
     patient.setGender(sc.nextLine());
     System.out.println("Informe a Data de Nascimento");
-
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    patient.setDateBirth(LocalDate.parse(sc.nextLine(), dtf));
-
+    patient.setDateBirth(dt.inputDate());
     AllergyView allergyView = new AllergyView();
     patient.setAllergy(allergyView.addAllergy());
 
@@ -88,13 +79,16 @@ public class PatientView {
     System.out.println("Informe o telefone");
     patient.setPhone(sc.nextLine());
     patientController.save(patient);
-    patientMenu();
   }
 
   private void getAllPatient(){
     List<Patient> patientList= patientController.getAll();
     renderizePatient(patientList);
 
+  }
+
+  private Long returnLastIdPatient(){
+    return Long.valueOf(patientController.getAll().size() + 1);
   }
 
   private void getPatientbyName(){
@@ -110,6 +104,8 @@ public class PatientView {
   private void renderizePatient(List<Patient> patientList){
     System.out.println("**Pacientes Cadastrados**");
     for(int i=0; i<patientList.size();i++){
+      System.out.print("Id: ");
+      System.out.println(patientList.get(i).getId());
       System.out.print("Nome: ");
       System.out.println(patientList.get(i).getName());
 
@@ -126,4 +122,10 @@ public class PatientView {
       System.out.println();
     }
   }
+
+  public void opcaoInvalida(){
+    System.out.println("Opção Inválida, tente novamente");
+    patientMenu();
+  }
 }
+

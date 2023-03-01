@@ -2,21 +2,12 @@ package com.labmedicine.model;
 
 public class Doctor extends Person{
 
-  private Long idDoctor;
   private String university;
   private String crm;
   private String uf;
   private Integer specialization;
 
   private Boolean status;
-
-  public Long getIdDoctor() {
-    return idDoctor;
-  }
-
-  public void setIdDoctor(Long idDoctor) {
-    this.idDoctor = idDoctor;
-  }
 
   public String getUniversity() {
     return university;

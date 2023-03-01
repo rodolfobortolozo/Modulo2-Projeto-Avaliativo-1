@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Patient extends Person {
 
-  private Long idPatient;
   private String emergencyContact;
   private List<Allergy> allergy;
   private List<CareList> careList;
@@ -15,14 +14,6 @@ public class Patient extends Person {
   private String Status;
 
   public Patient() {
-  }
-
-  public Long getIdPatient() {
-    return idPatient;
-  }
-
-  public void setIdPatient(Long idPatient) {
-    this.idPatient = idPatient;
   }
 
   public String getEmergencyContact() {
@@ -84,7 +75,7 @@ public class Patient extends Person {
   @Override
   public String toString() {
     return "Patient{" +
-            "idPatient=" + idPatient +
+            "idPatient=" + id +
             ", emergencyContact='" + emergencyContact + '\'' +
             ", allergy=" + allergy +
             ", careList=" + careList +
@@ -92,7 +83,6 @@ public class Patient extends Person {
             ", insuranceNumber=" + insuranceNumber +
             ", insuranceDate=" + insuranceDate +
             ", Status='" + Status + '\'' +
-            ", idPerson=" + idPerson +
             ", name='" + name + '\'' +
             ", gender='" + gender + '\'' +
             ", dateBirth=" + dateBirth +

@@ -3,7 +3,7 @@ package com.labmedicine.model;
 import java.time.LocalDate;
 
 public abstract class Person {
-  Long idPerson;
+  Long id;
   String name;
   String gender;
   LocalDate dateBirth;
@@ -13,12 +13,12 @@ public abstract class Person {
   public Person() {
   }
 
-  public Long getIdPerson() {
-    return idPerson;
+  public Long getId() {
+    return id;
   }
 
-  public void setIdPerson(Long idPerson) {
-    this.idPerson = idPerson;
+  public void setId(Long idPerson) {
+    this.id = idPerson;
   }
 
   public String getName() {

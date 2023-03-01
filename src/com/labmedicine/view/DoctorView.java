@@ -20,35 +20,24 @@ public class DoctorView {
   }
 
   public void doctorMenu(){
+    Scanner scanner = new Scanner(System.in);
+    Integer op = null;
+
     System.out.println("**Menu Médico**");
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
-    System.out.println("3. Pesquisar Enfermeiro");
-    System.out.println("9. Sair");
-    Integer op = optionDoctor();
-    actions(op);
-  }
-
-  public Integer optionDoctor() {
-    Integer op;
-    try {
-      Scanner scanner = new Scanner(System.in);
-      System.out.print("Opção: ");
-      op = Integer.parseInt(scanner.nextLine());
-      return op;
-
-    } catch (InputMismatchException e) {
-      System.out.println("Opção Inválida, tente novamente");
-      optionDoctor();
-      return null;
+    System.out.println("3. Pesquisar Médico");
+    System.out.println("9. Voltar para o Menu Principal");
+    try{
+      op = scanner.nextInt();
+    }catch (InputMismatchException e){
+      opcaoInvalida();
     }
-  }
-  private void actions (Integer op){
-
     switch (op){
       case 1:
         addDoctor();
+        doctorMenu();
         break;
       case 2:
         getAllDoctor();
@@ -57,15 +46,19 @@ public class DoctorView {
       case 3:
         getDoctorbyName();
         doctorMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
+      default:
+        opcaoInvalida();
     }
   }
 
   private void addDoctor(){
     Doctor doctor = new Doctor();
     Scanner sc = new Scanner(System.in);
+    InputDate dt = new InputDate();
 
     System.out.println("Informe o nome do Médico");
     doctor.setName(sc.nextLine());
@@ -74,10 +67,7 @@ public class DoctorView {
     System.out.println("2 - Feminino");
     doctor.setGender(sc.nextLine());
     System.out.println("Informe a Data de Nascimento");
-
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    doctor.setDateBirth(LocalDate.parse(sc.nextLine(), dtf));
-
+    doctor.setDateBirth(dt.inputDate());
     System.out.println("Informe o cpf");
     doctor.setCpf(sc.nextLine());
     System.out.println("Informe o telefone");
@@ -109,11 +99,21 @@ public class DoctorView {
     System.out.println("7. Psiquiatria");
     System.out.println("8. Ortopedia");
 
-    op = Integer.parseInt(sc.nextLine());
+    try{
+      op = Integer.parseInt(sc.nextLine());
+      if(op<0 || op>8){
+        System.out.println("Especialização Não Encontrada");
+        renderizeSpecialization();
+    }
+    }catch (NumberFormatException e){
+      System.out.println("Especialização Inválida");
+      renderizeSpecialization();
+    }
 
     return op;
 
   }
+
   private void getAllDoctor(){
     List<Doctor> doctorList = doctorController.getAll();
     renderizeDoctor(doctorList);
@@ -138,5 +138,10 @@ public class DoctorView {
 
 
     }
+  }
+
+  public void opcaoInvalida(){
+    System.out.println("Opção Inválida, tente novamente");
+    doctorMenu();
   }
 }

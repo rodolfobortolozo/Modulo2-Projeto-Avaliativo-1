@@ -2,19 +2,10 @@ package com.labmedicine.model;
 
 public class Nurse extends Person{
 
-  private Long idNurse;
   private String university;
   private String cofen;
   private String uf;
   private String status;
-
-  public Long getIdNurse() {
-    return idNurse;
-  }
-
-  public void setIdNurse(Long idNurse) {
-    this.idNurse = idNurse;
-  }
 
   public String getUniversity() {
     return university;
