@@ -5,7 +5,14 @@ import java.util.Scanner;
 
 public class Menu {
 
-  public  void mainMenu(){
+  public void mainMenu(){
+    PatientView patientView = new PatientView();
+    NurseView nurseView = new NurseView();
+    DoctorView doctorView = new DoctorView();
+
+    Scanner scanner = new Scanner(System.in);
+    Integer opcao = 0;
+
     System.out.println("Bem vindo ao sistema LABMedicine LTDA");
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastro de Paciente");
@@ -15,20 +22,32 @@ public class Menu {
     System.out.println("5. Atualização do Status de Atendimento do Paciente");
     System.out.println("6. Relatórios");
     System.out.println("0. Sair");
-  }
-
-  public Integer optionMenu(){
-    try {
-      Scanner scanner = new Scanner(System.in);
-      System.out.print("Número selecionado: ");
-      Integer op = Integer.parseInt(scanner.nextLine());
-      return op;
-
+    System.out.print("Selecione opção a opção:");
+    try{
+      opcao = scanner.nextInt();
     }catch (InputMismatchException e){
-      System.out.println("Opção Inválida, tente novamente");
-      optionMenu();
-      return null;
+      opcaoInvalida();
     }
 
+    switch (opcao){
+      case 0:
+        System.exit(0);
+      case 1:
+        patientView.patientMenu();
+        break;
+      case 2:
+        nurseView.nurseMenu();
+        break;
+      case 3:
+        doctorView.doctorMenu();
+        break;
+      default:
+        opcaoInvalida();
+    }
+  }
+
+  public void opcaoInvalida(){
+    System.out.println("Opção Inválida, tente novamente");
+    mainMenu();
   }
 }
