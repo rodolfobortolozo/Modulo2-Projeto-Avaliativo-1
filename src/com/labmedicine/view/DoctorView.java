@@ -1,0 +1,142 @@
+package com.labmedicine.view;
+
+import com.labmedicine.controller.DoctorController;
+
+import com.labmedicine.model.Doctor;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+public class DoctorView {
+  static DoctorController doctorController;
+  static Menu menu;
+
+  static {
+    doctorController = new DoctorController();
+    menu = new Menu();
+  }
+
+  public void doctorMenu(){
+    System.out.println("**Menu Médico**");
+    System.out.println("Selecione uma das opções abaixo");
+    System.out.println("1. Cadastrar");
+    System.out.println("2. Listar Todos");
+    System.out.println("3. Pesquisar Enfermeiro");
+    System.out.println("9. Sair");
+    Integer op = optionDoctor();
+    actions(op);
+  }
+
+  public Integer optionDoctor() {
+    Integer op;
+    try {
+      Scanner scanner = new Scanner(System.in);
+      System.out.print("Opção: ");
+      op = Integer.parseInt(scanner.nextLine());
+      return op;
+
+    } catch (InputMismatchException e) {
+      System.out.println("Opção Inválida, tente novamente");
+      optionDoctor();
+      return null;
+    }
+  }
+  private void actions (Integer op){
+
+    switch (op){
+      case 1:
+        addDoctor();
+        break;
+      case 2:
+        getAllDoctor();
+        doctorMenu();
+        break;
+      case 3:
+        getDoctorbyName();
+        doctorMenu();
+      case 9:
+        menu.mainMenu();
+        break;
+    }
+  }
+
+  private void addDoctor(){
+    Doctor doctor = new Doctor();
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Informe o nome do Médico");
+    doctor.setName(sc.nextLine());
+    System.out.println("Informe o Genêro");
+    System.out.println("1 - Masculino");
+    System.out.println("2 - Feminino");
+    doctor.setGender(sc.nextLine());
+    System.out.println("Informe a Data de Nascimento");
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    doctor.setDateBirth(LocalDate.parse(sc.nextLine(), dtf));
+
+    System.out.println("Informe o cpf");
+    doctor.setCpf(sc.nextLine());
+    System.out.println("Informe o telefone");
+    doctor.setPhone(sc.nextLine());
+    System.out.println("Instituiçáo de Ensino");
+    doctor.setUniversity(sc.nextLine());
+    System.out.println("CRM");
+    doctor.setCrm(sc.nextLine());
+    System.out.println("UF");
+    doctor.setUf(sc.nextLine());
+    System.out.println("Especialização");
+    Integer opSpec = renderizeSpecialization();
+    doctor.setSpecialization(opSpec);
+
+    doctorController.save(doctor);
+    doctorMenu();
+  }
+
+  private Integer renderizeSpecialization(){
+    Integer op = 0;
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("1. Clínico Geral");
+    System.out.println("2. Anestesista");
+    System.out.println("3. Dermatologia");
+    System.out.println("4. Ginecologia");
+    System.out.println("5. Neurologia");
+    System.out.println("6. Pediatria");
+    System.out.println("7. Psiquiatria");
+    System.out.println("8. Ortopedia");
+
+    op = Integer.parseInt(sc.nextLine());
+
+    return op;
+
+  }
+  private void getAllDoctor(){
+    List<Doctor> doctorList = doctorController.getAll();
+    renderizeDoctor(doctorList);
+
+  }
+
+  private void getDoctorbyName(){
+    Scanner sc = new Scanner(System.in);
+    Doctor doctor = new Doctor();
+    System.out.print("Digite o nome:");
+    doctor.setName(sc.nextLine());
+    List<Doctor> doctorList = doctorController.getNursebyName(doctor);
+    renderizeDoctor(doctorList);
+
+  }
+
+  private void renderizeDoctor(List<Doctor> doctorList){
+    System.out.println("**Médicos Cadastrados**");
+    for(int i=0; i<doctorList.size();i++){
+      System.out.print("Nome: ");
+      System.out.println(doctorList.get(i).getName());
+
+
+    }
+  }
+}
