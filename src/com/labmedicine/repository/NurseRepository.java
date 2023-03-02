@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class NurseRepository implements PersonInterface<Nurse> {
 
-  List<Nurse> arrNurse = new ArrayList<>();
+  static final List<Nurse> arrNurse = new ArrayList<>();
 
   @Override
   public boolean add(Nurse nurse) {

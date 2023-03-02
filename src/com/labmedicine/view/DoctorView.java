@@ -114,7 +114,7 @@ public class DoctorView {
 
   }
 
-  private void getAllDoctor(){
+  public void getAllDoctor(){
     List<Doctor> doctorList = doctorController.getAll();
     renderizeDoctor(doctorList);
 

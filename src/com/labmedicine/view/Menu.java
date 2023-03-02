@@ -9,6 +9,7 @@ public class Menu {
     PatientView patientView = new PatientView();
     NurseView nurseView = new NurseView();
     DoctorView doctorView = new DoctorView();
+    ConsultView consultView = new ConsultView();
 
     Scanner scanner = new Scanner(System.in);
     Integer opcao = 0;
@@ -40,6 +41,9 @@ public class Menu {
         break;
       case 3:
         doctorView.doctorMenu();
+        break;
+      case 4:
+        consultView.addConsult();
         break;
       default:
         opcaoInvalida();
