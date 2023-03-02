@@ -23,6 +23,28 @@ public class NurseRepository implements PersonInterface<Nurse> {
   }
 
   @Override
+  public boolean update(Integer indice, Nurse nurse) {
+    try{
+      arrNurse.set(indice,nurse);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  @Override
+  public boolean remove(Integer indice) {
+    try{
+      arrNurse.remove(indice);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  @Override
   public List getAll() {
     return arrNurse;
   }

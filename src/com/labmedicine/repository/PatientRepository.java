@@ -23,6 +23,29 @@ public class PatientRepository implements PersonInterface<Patient> {
   }
 
   @Override
+  public boolean update(Integer indice, Patient patient) {
+    try{
+      arrPatient.set(indice,patient);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+
+  }
+
+  @Override
+  public boolean remove(Integer indice) {
+    try{
+      arrPatient.remove(indice);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  @Override
   public List getAll() {
     return arrPatient;
   }

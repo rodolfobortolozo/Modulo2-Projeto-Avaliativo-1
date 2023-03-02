@@ -9,8 +9,13 @@ public interface PersonInterface<T> {
 
   boolean add(T object);
 
+  boolean update(Integer indice, T object);
+
+  boolean remove(Integer indice);
+
   List<T> getAll();
 
   List<T> getByName(T object);
+
 
 }

@@ -24,6 +24,28 @@ public class DoctorRepository implements PersonInterface<Doctor> {
   }
 
   @Override
+  public boolean update(Integer indice, Doctor doctor) {
+    try{
+      arrDoctor.set(indice,doctor);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  @Override
+  public boolean remove(Integer indice) {
+    try{
+      arrDoctor.remove(indice);
+      return true;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+  }
+
+  @Override
   public List getAll() {
     return arrDoctor;
   }
