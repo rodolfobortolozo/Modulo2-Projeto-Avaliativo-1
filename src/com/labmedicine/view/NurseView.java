@@ -89,7 +89,7 @@ public class NurseView {
   }
 
   private Long returnLastIdNurse(){
-    return Long.valueOf(nurseController.getAll().size() + 1);
+    return Long.valueOf(nurseController.returnLastIdNurse());
   }
 
   private void getNursebyName(){

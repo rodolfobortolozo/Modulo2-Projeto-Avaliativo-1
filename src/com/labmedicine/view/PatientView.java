@@ -89,7 +89,7 @@ public class PatientView {
   }
 
   private Long returnLastIdPatient(){
-    return Long.valueOf(patientController.getAll().size() + 1);
+    return patientController.returnLastIdPatient();
   }
 
   private void getPatientbyName(){

@@ -22,6 +22,10 @@ public class NurseController {
         return nurseRepository.getAll();
     }
 
+    public Long returnLastIdNurse(){
+        return Long.valueOf(getAll().size() + 1);
+    }
+
     public List<Nurse> getNursebyName(Nurse nurse){
         return nurseRepository.getByName(nurse);
     }

@@ -61,6 +61,7 @@ public class DoctorView {
     IsDate dt = new IsDate();
     InputGender ge = new InputGender();
 
+    doctor.setId(returnLastIdNurse());
     System.out.println("Informe o nome do Médico");
     doctor.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
@@ -117,6 +118,10 @@ public class DoctorView {
     List<Doctor> doctorList = doctorController.getAll();
     renderizeDoctor(doctorList);
 
+  }
+
+  private Long returnLastIdNurse(){
+    return Long.valueOf(doctorController.returnLastIdDoctor());
   }
 
   private void getDoctorbyName(){
