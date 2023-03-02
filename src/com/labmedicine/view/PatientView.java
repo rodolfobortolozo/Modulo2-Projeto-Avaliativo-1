@@ -26,6 +26,7 @@ public class PatientView {
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
+    System.out.println("4. Alterar Paciente");
     System.out.println("3. Pesquisar Paciente");
     System.out.println("9. Voltar para o Menu Principal");
     try{
@@ -46,6 +47,10 @@ public class PatientView {
         getPatientbyName();
         patientMenu();
         break;
+      case 4:
+        updatePatient();
+        patientMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
@@ -55,6 +60,28 @@ public class PatientView {
   }
 
   private void addPatient(){
+    Patient pat = new Patient();
+
+    Patient patient = viewPatient();
+    patient.setId(returnLastIdPatient());
+
+    patientController.save(patient);
+  }
+
+  private void updatePatient(){
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Informe o Código do Paciente");
+    String op = sc.nextLine();
+
+    patientController.existsPatient(Long.valueOf(op));
+
+    Patient vpatient = viewPatient();
+
+    patientController.updatePatient(0, vpatient);
+  }
+
+  public Patient viewPatient(){
     Patient patient = new Patient();
     AllergyView allergyView = new AllergyView();
     CareListView careListView = new CareListView();
@@ -62,7 +89,6 @@ public class PatientView {
     IsDate dt = new IsDate();
     InputGender ge = new InputGender();
 
-    patient.setId(returnLastIdPatient());
     System.out.println("Informe o nome do Paciente");
     patient.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
@@ -79,7 +105,7 @@ public class PatientView {
     System.out.println("Informe o telefone");
     patient.setPhone(sc.nextLine());
 
-    patientController.save(patient);
+    return patient;
   }
 
   private void getAllPatient(){
