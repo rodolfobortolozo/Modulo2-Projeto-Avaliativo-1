@@ -129,7 +129,7 @@ public class DoctorView {
     Doctor doctor = new Doctor();
     System.out.print("Digite o nome:");
     doctor.setName(sc.nextLine());
-    List<Doctor> doctorList = doctorController.getNursebyName(doctor);
+    List<Doctor> doctorList = doctorController.getDoctorbyName(doctor);
     renderizeDoctor(doctorList);
 
   }

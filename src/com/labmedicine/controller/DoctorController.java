@@ -1,9 +1,7 @@
 package com.labmedicine.controller;
 
 import com.labmedicine.model.Doctor;
-import com.labmedicine.model.Nurse;
 import com.labmedicine.repository.DoctorRepository;
-import com.labmedicine.repository.NurseRepository;
 
 import java.util.List;
 
@@ -24,11 +22,24 @@ public class DoctorController {
         return doctorRepository.getAll();
     }
 
+    public Boolean existsDoctor(Long id){
+
+        for(int i=0; i < getAll().size();i++){
+            Boolean res = getAll().get(i).getId().equals(id);
+            if(res){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+
     public Long returnLastIdDoctor(){
         return Long.valueOf(getAll().size() + 1);
     }
 
-    public List<Doctor> getNursebyName(Doctor doctor){
+    public List<Doctor> getDoctorbyName(Doctor doctor){
         return doctorRepository.getByName(doctor);
     }
 }
