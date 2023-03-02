@@ -2,6 +2,8 @@ package com.labmedicine.view;
 
 import com.labmedicine.controller.NurseController;
 import com.labmedicine.model.Nurse;
+import com.labmedicine.view.utils.IsDate;
+import com.labmedicine.view.utils.InputGender;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -55,17 +57,16 @@ public class NurseView {
   private void addNurse(){
     Nurse nurse = new Nurse();
     Scanner sc = new Scanner(System.in);
-    InputDate dt = new InputDate();
+    IsDate dt = new IsDate();
+    InputGender ge = new InputGender();
 
     nurse.setId(returnLastIdNurse());
     System.out.println("Informe o nome do Enfermeiro");
     nurse.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
-    System.out.println("1 - Masculino");
-    System.out.println("2 - Feminino");
-    nurse.setGender(sc.nextLine());
+    nurse.setGender(ge.getinputGender());
     System.out.println("Informe a Data de Nascimento");
-    nurse.setDateBirth(dt.inputDate());
+    nurse.setDateBirth(dt.getIsDate());
     System.out.println("Informe o cpf");
     nurse.setCpf(sc.nextLine());
     System.out.println("Informe o telefone");

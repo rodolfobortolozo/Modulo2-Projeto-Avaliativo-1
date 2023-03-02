@@ -2,9 +2,9 @@ package com.labmedicine.view;
 
 import com.labmedicine.controller.PatientController;
 import com.labmedicine.model.Patient;
+import com.labmedicine.view.utils.IsDate;
+import com.labmedicine.view.utils.InputGender;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -56,28 +56,29 @@ public class PatientView {
 
   private void addPatient(){
     Patient patient = new Patient();
+    AllergyView allergyView = new AllergyView();
+    CareListView careListView = new CareListView();
     Scanner sc = new Scanner(System.in);
-    InputDate dt = new InputDate();
+    IsDate dt = new IsDate();
+    InputGender ge = new InputGender();
 
     patient.setId(returnLastIdPatient());
     System.out.println("Informe o nome do Paciente");
     patient.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
-    System.out.println("M - Masculino");
-    System.out.println("F - Feminino");
-    patient.setGender(sc.nextLine());
+    patient.setGender(ge.getinputGender());
     System.out.println("Informe a Data de Nascimento");
-    patient.setDateBirth(dt.inputDate());
-    AllergyView allergyView = new AllergyView();
+    patient.setDateBirth(dt.getIsDate());
+    //Alergias
     patient.setAllergy(allergyView.addAllergy());
-
-    CareListView careListView = new CareListView();
-    patient.setCareList(careListView.addAllergy());
+    //Lista de Cuidados
+    patient.setCareList(careListView.addCareList());
 
     System.out.println("Informe o cpf");
     patient.setCpf(sc.nextLine());
     System.out.println("Informe o telefone");
     patient.setPhone(sc.nextLine());
+
     patientController.save(patient);
   }
 

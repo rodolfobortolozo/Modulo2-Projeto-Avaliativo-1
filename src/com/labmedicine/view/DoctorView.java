@@ -3,9 +3,9 @@ package com.labmedicine.view;
 import com.labmedicine.controller.DoctorController;
 
 import com.labmedicine.model.Doctor;
+import com.labmedicine.view.utils.IsDate;
+import com.labmedicine.view.utils.InputGender;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -58,16 +58,15 @@ public class DoctorView {
   private void addDoctor(){
     Doctor doctor = new Doctor();
     Scanner sc = new Scanner(System.in);
-    InputDate dt = new InputDate();
+    IsDate dt = new IsDate();
+    InputGender ge = new InputGender();
 
     System.out.println("Informe o nome do Médico");
     doctor.setName(sc.nextLine());
     System.out.println("Informe o Genêro");
-    System.out.println("1 - Masculino");
-    System.out.println("2 - Feminino");
-    doctor.setGender(sc.nextLine());
+    doctor.setGender(ge.getinputGender());
     System.out.println("Informe a Data de Nascimento");
-    doctor.setDateBirth(dt.inputDate());
+    doctor.setDateBirth(dt.getIsDate());
     System.out.println("Informe o cpf");
     doctor.setCpf(sc.nextLine());
     System.out.println("Informe o telefone");
