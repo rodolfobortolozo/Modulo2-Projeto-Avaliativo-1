@@ -1,6 +1,7 @@
 package com.labmedicine.controller;
 
 import com.labmedicine.model.Doctor;
+import com.labmedicine.model.Patient;
 import com.labmedicine.repository.DoctorRepository;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public class DoctorController {
 
     public List<Doctor> getAll(){
         return doctorRepository.getAll();
+    }
+
+    public Doctor getById(Integer indece){
+        return doctorRepository.getById(indece-1);
     }
 
     public Boolean existsDoctor(Long id){

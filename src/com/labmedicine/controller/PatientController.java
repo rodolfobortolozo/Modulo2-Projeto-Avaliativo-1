@@ -31,17 +31,21 @@ public class PatientController {
     return patientRepository.getAll();
   }
 
-  public Integer existsPatient(Long id){
+  public Patient getById(Integer indece){
+    return patientRepository.getById(indece-1);
+  }
+
+  public Boolean existsPatient(Long id){
 
     for(int i=0; i < getAll().size();i++){
       Boolean res = getAll().get(i).getId().equals(id);
       if(res){
-        return i;
+        return true;
       }else{
-        return 0;
+        return false;
       }
     }
-    return 0;
+    return false;
   }
 
   public Long returnLastIdPatient(){

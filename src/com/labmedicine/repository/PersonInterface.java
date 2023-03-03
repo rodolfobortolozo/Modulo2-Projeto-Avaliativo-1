@@ -15,6 +15,8 @@ public interface PersonInterface<T> {
 
   List<T> getAll();
 
+  T getById(Integer indice);
+
   List<T> getByName(T object);
 
 

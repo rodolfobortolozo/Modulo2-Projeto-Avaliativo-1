@@ -10,7 +10,7 @@ public class IsInteger {
 
             try{
                 return Integer.parseInt(sc.nextLine());
-            }catch (DateTimeParseException e){
+            }catch (Exception e){
                 System.out.println("Não é um número válido, tente novamente");
                 getIsInteger();
                 return null;

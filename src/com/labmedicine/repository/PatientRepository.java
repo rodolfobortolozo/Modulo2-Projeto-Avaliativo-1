@@ -51,6 +51,15 @@ public class PatientRepository implements PersonInterface<Patient> {
   }
 
   @Override
+  public Patient getById(Integer indice) {
+    return arrPatient.get(indice);
+  }
+
+  public void upateConsult(Patient patient){
+
+  }
+
+  @Override
   public List<Patient> getByName(Patient patient) {
 
     Predicate<Patient> filterPatient = p -> p.getName().equalsIgnoreCase(patient.getName());

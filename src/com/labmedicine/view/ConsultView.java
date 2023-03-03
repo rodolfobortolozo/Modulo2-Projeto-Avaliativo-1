@@ -14,6 +14,8 @@ import java.util.Scanner;
 
 public class ConsultView {
     IsInteger isInteger = new IsInteger();
+    Patient patient = new Patient();
+    Doctor doctor = new Doctor();
     static DoctorController doctorController;
     static PatientController patientController;
 
@@ -24,6 +26,21 @@ public class ConsultView {
 
 
     public void addConsult(){
+
+        ConsultView consultView = new ConsultView();
+        Integer opDoctor = consultView.searchDoctor();
+        Integer opPatient = consultView.searchPatient();
+
+        patient = patientController.getById(opPatient);
+        doctor = doctorController.getById(opDoctor);
+
+        patient.setQtdConsult(patient.getQtdConsult()+1);
+        doctor.setQtdConsult(doctor.getQtdConsult()+1);
+
+    }
+
+    private  Integer searchDoctor(){
+
         System.out.println("Informe o Médico responsável pela consulta");
 
         for(Doctor doctor : doctorController.getAll()){
@@ -32,10 +49,15 @@ public class ConsultView {
         Integer opDoctor = isInteger.getIsInteger();
 
         if(doctorController.existsDoctor(Long.valueOf(opDoctor))){
-            System.out.println("Ok");
+            return opDoctor;
         }else {
-            System.out.println("Não");
+            searchDoctor();
+            return  null;
         }
+
+    }
+
+    private  Integer searchPatient(){
 
         System.out.println("Informe o Paciente da Consulta");
 
@@ -44,10 +66,11 @@ public class ConsultView {
         }
         Integer opPatient = isInteger.getIsInteger();
 
-        if(doctorController.existsDoctor(Long.valueOf(opPatient))){
-            System.out.println("Ok");
+        if(patientController.existsPatient(Long.valueOf(opPatient))){
+            return opPatient;
         }else {
-            System.out.println("Não");
+            searchPatient();
+            return  null;
         }
 
     }

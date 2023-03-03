@@ -50,6 +50,11 @@ public class NurseRepository implements PersonInterface<Nurse> {
   }
 
   @Override
+  public Nurse getById(Integer indice) {
+    return null;
+  }
+
+  @Override
   public List<Nurse> getByName(Nurse nurse) {
 
     Predicate<Nurse> filterNurse = p -> p.getName().equalsIgnoreCase(nurse.getName());

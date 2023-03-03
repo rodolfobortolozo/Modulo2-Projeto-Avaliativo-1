@@ -6,6 +6,7 @@ public class Doctor extends Person{
   private String crm;
   private String uf;
   private Integer specialization;
+  private Integer qtdConsult = 0;
 
   private Boolean status;
 
@@ -47,5 +48,13 @@ public class Doctor extends Person{
 
   public void setStatus(Boolean status) {
     this.status = status;
+  }
+
+  public Integer getQtdConsult() {
+    return qtdConsult;
+  }
+
+  public void setQtdConsult(Integer qtdConsult) {
+    this.qtdConsult = qtdConsult;
   }
 }

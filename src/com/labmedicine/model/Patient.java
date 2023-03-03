@@ -13,6 +13,8 @@ public class Patient extends Person {
   private LocalDate insuranceDate;
   private String Status;
 
+  private Integer qtdConsult = 0;
+
   public Patient() {
   }
 
@@ -72,17 +74,27 @@ public class Patient extends Person {
     Status = status;
   }
 
+  public Integer getQtdConsult() {
+    return qtdConsult;
+  }
+
+  public void setQtdConsult(Integer qtdConsult) {
+    this.qtdConsult = qtdConsult;
+  }
+
   @Override
   public String toString() {
     return "Patient{" +
-            "idPatient=" + id +
-            ", emergencyContact='" + emergencyContact + '\'' +
+            ", qtdConsult=" + qtdConsult + '\'' +
+    "emergencyContact='" + emergencyContact + '\'' +
             ", allergy=" + allergy +
             ", careList=" + careList +
             ", healthInsurance='" + healthInsurance + '\'' +
             ", insuranceNumber=" + insuranceNumber +
             ", insuranceDate=" + insuranceDate +
             ", Status='" + Status + '\'' +
+
+            ", id=" + id +
             ", name='" + name + '\'' +
             ", gender='" + gender + '\'' +
             ", dateBirth=" + dateBirth +
