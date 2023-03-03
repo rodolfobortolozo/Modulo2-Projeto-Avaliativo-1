@@ -1,5 +1,6 @@
 package com.labmedicine.repository;
 
+import com.labmedicine.model.Doctor;
 import com.labmedicine.model.Patient;
 
 import java.util.ArrayList;
@@ -51,9 +52,18 @@ public class PatientRepository implements PersonInterface<Patient> {
   }
 
   @Override
-  public Patient getById(Integer indice) {
-    return arrPatient.get(indice);
+  public Patient getById(Long id) {
+    
+    for (Patient patient : arrPatient){
+      if(patient.getId().equals(id)){
+        return patient;
+      }else{
+        return null;
+      }
+    }
+    return null;
   }
+
 
   public void upateConsult(Patient patient){
 

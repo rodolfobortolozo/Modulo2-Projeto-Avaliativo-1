@@ -23,21 +23,21 @@ public class DoctorController {
         return doctorRepository.getAll();
     }
 
-    public Doctor getById(Integer indece){
-        return doctorRepository.getById(indece-1);
+    public Doctor getById(Long id){
+        return doctorRepository.getById(id);
     }
 
-    public Boolean existsDoctor(Long id){
+    public Integer indexDoctor(Long id){
 
         for(int i=0; i < getAll().size();i++){
             Boolean res = getAll().get(i).getId().equals(id);
             if(res){
-                return true;
+                return 1;
             }else{
-                return false;
+                return -1;
             }
         }
-        return false;
+        return -1;
     }
 
     public Long returnLastIdDoctor(){

@@ -51,8 +51,16 @@ public class DoctorRepository implements PersonInterface<Doctor> {
   }
 
   @Override
-  public Doctor getById(Integer indice) {
-    return arrDoctor.get(indice);
+  public Doctor getById(Long id) {
+
+    for (Doctor doctor : arrDoctor){
+      if(doctor.getId().equals(id)){
+        return doctor;
+      }else{
+        return null;
+      }
+    }
+    return null;
   }
 
   @Override

@@ -1,16 +1,10 @@
 package com.labmedicine.view;
 
-import com.labmedicine.controller.ConsultController;
 import com.labmedicine.controller.DoctorController;
 import com.labmedicine.controller.PatientController;
 import com.labmedicine.model.Doctor;
 import com.labmedicine.model.Patient;
-import com.labmedicine.repository.DoctorRepository;
 import com.labmedicine.view.utils.IsInteger;
-
-import javax.print.Doc;
-import java.util.List;
-import java.util.Scanner;
 
 public class ConsultView {
     IsInteger isInteger = new IsInteger();
@@ -28,28 +22,28 @@ public class ConsultView {
     public void addConsult(){
 
         ConsultView consultView = new ConsultView();
-        Integer opDoctor = consultView.searchDoctor();
-        Integer opPatient = consultView.searchPatient();
+        doctor = consultView.searchDoctor();
+        patient = consultView.searchPatient();
 
-        patient = patientController.getById(opPatient);
-        doctor = doctorController.getById(opDoctor);
 
-        patient.setQtdConsult(patient.getQtdConsult()+1);
-        doctor.setQtdConsult(doctor.getQtdConsult()+1);
 
     }
 
-    private  Integer searchDoctor(){
+    private  Doctor searchDoctor(){
 
-        System.out.println("Informe o Médico responsável pela consulta");
+        System.out.println("Informe o código do médico");
 
         for(Doctor doctor : doctorController.getAll()){
-            System.out.println(doctor.getId()+"-"+doctor.getName());
+            if(doctor.getStatus() == true){
+                System.out.println(doctor.getId()+"-"+doctor.getName() +" Crm:"+doctor.getCrm());
+            }
         }
-        Integer opDoctor = isInteger.getIsInteger();
 
-        if(doctorController.existsDoctor(Long.valueOf(opDoctor))){
-            return opDoctor;
+        Long opDoctor = Long.valueOf(isInteger.getIsInteger());
+        doctor = doctorController.getById(opDoctor);
+
+        if(doctor!=null){
+            return doctor;
         }else {
             searchDoctor();
             return  null;
@@ -57,19 +51,20 @@ public class ConsultView {
 
     }
 
-    private  Integer searchPatient(){
+    private  Patient searchPatient(){
 
-        System.out.println("Informe o Paciente da Consulta");
+        System.out.println("Informe código do Paciente");
 
         for(Patient patient : patientController.getAll()){
             System.out.println(patient.getId()+"-"+patient.getName());
         }
-        Integer opPatient = isInteger.getIsInteger();
+        Long opPatient = Long.valueOf(isInteger.getIsInteger());
+        patient = patientController.getById(opPatient);
 
-        if(patientController.existsPatient(Long.valueOf(opPatient))){
-            return opPatient;
+        if(patient!=null){
+            return patient;
         }else {
-            searchPatient();
+            searchDoctor();
             return  null;
         }
 

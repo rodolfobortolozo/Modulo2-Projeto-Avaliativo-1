@@ -1,6 +1,7 @@
 package com.labmedicine.repository;
 
 import com.labmedicine.model.Nurse;
+import com.labmedicine.model.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,15 @@ public class NurseRepository implements PersonInterface<Nurse> {
   }
 
   @Override
-  public Nurse getById(Integer indice) {
+  public Nurse getById(Long id) {
+
+    for (Nurse nurse : arrNurse){
+      if(nurse.getId().equals(id)){
+        return nurse;
+      }else{
+        return null;
+      }
+    }
     return null;
   }
 

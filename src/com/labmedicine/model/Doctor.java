@@ -7,7 +7,6 @@ public class Doctor extends Person{
   private String uf;
   private Integer specialization;
   private Integer qtdConsult = 0;
-
   private Boolean status;
 
   public String getUniversity() {
@@ -56,5 +55,23 @@ public class Doctor extends Person{
 
   public void setQtdConsult(Integer qtdConsult) {
     this.qtdConsult = qtdConsult;
+  }
+
+  @Override
+  public String toString() {
+    return "Doctor{" +
+            "university='" + university + '\'' +
+            ", crm='" + crm + '\'' +
+            ", uf='" + uf + '\'' +
+            ", specialization=" + specialization +
+            ", qtdConsult=" + qtdConsult +
+            ", status=" + status +
+            ", id=" + id +
+            ", name='" + name + '\'' +
+            ", gender='" + gender + '\'' +
+            ", dateBirth=" + dateBirth +
+            ", cpf='" + cpf + '\'' +
+            ", phone='" + phone + '\'' +
+            '}';
   }
 }

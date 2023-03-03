@@ -89,7 +89,6 @@ public class DoctorView {
   private Integer renderizeSpecialization(){
     Integer op = 0;
     Scanner sc = new Scanner(System.in);
-
     System.out.println("1. Clínico Geral");
     System.out.println("2. Anestesista");
     System.out.println("3. Dermatologia");

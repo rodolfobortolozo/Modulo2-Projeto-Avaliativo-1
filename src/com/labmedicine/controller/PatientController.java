@@ -31,8 +31,8 @@ public class PatientController {
     return patientRepository.getAll();
   }
 
-  public Patient getById(Integer indece){
-    return patientRepository.getById(indece-1);
+  public Patient getById(Long id){
+    return patientRepository.getById(id);
   }
 
   public Boolean existsPatient(Long id){
