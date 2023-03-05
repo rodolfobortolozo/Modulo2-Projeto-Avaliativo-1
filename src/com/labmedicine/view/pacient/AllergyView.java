@@ -22,7 +22,7 @@ public class AllergyView {
         List<Allergy> listAllergy = new ArrayList<>();
 
 
-        System.out.println("Deseja informar a lista de Cuidados");
+        System.out.println("O Paciente tem Alergia");
         System.out.println("1-Sim, 2-Não");
         op = isInteger.getIsInteger();
 
