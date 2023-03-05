@@ -2,9 +2,6 @@
 
 Projeto avaliativo do DevinHouse - Módulo 02
 
-Imagem da tela inicial do projeto.
-
-<img src="src\img\Programa.png" alt="exemplo imagem">
 
 ## Descrição do Projeto
 
