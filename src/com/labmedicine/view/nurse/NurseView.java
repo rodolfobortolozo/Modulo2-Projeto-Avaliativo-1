@@ -1,7 +1,9 @@
-package com.labmedicine.view;
+package com.labmedicine.view.nurse;
 
 import com.labmedicine.controller.NurseController;
+import com.labmedicine.model.Doctor;
 import com.labmedicine.model.Nurse;
+import com.labmedicine.view.Menu;
 import com.labmedicine.view.utils.IsDate;
 import com.labmedicine.view.utils.InputGender;
 
@@ -27,6 +29,7 @@ public class NurseView {
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
     System.out.println("3. Pesquisar Enfermeiro");
+    System.out.println("4. Alterar Enfermeiro");
     System.out.println("9. Voltar para o Menu Principal");
     try{
       op = scanner.nextInt();
@@ -46,6 +49,10 @@ public class NurseView {
         getNursebyName();
         nurseMenu();
         break;
+      case 4:
+        updateNurse();
+        nurseMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
@@ -55,6 +62,32 @@ public class NurseView {
   }
 
   private void addNurse(){
+    Nurse nurse = viewNurse();
+    nurse.setId(nurseController.returnLastIdNurse());
+    nurseController.save(nurse);
+    nurseMenu();
+  }
+
+  private void updateNurse(){
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Informe o Código do Enfermeiro");
+    String cod = sc.nextLine();
+    Integer indice = nurseController.indexNurse(Long.valueOf(cod));
+
+    if( indice >= 0){
+
+      Nurse uNurse = viewNurse();
+      uNurse.setId(Long.valueOf(cod));
+      nurseController.updateNurse(indice, uNurse);
+    }
+
+    System.out.println("Médico não encontrado!");
+
+
+  }
+
+  private Nurse viewNurse(){
     Nurse nurse = new Nurse();
     Scanner sc = new Scanner(System.in);
     IsDate dt = new IsDate();
@@ -78,10 +111,8 @@ public class NurseView {
     System.out.println("UF");
     nurse.setUf(sc.nextLine());
 
-    nurseController.save(nurse);
-    nurseMenu();
+    return nurse;
   }
-
   private void getAllNurse(){
     List<Nurse> nurseList = nurseController.getAll();
     renderizeNurse(nurseList);

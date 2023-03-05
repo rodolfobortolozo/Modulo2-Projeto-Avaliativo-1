@@ -51,6 +51,18 @@ public class DoctorRepository implements PersonInterface<Doctor> {
   }
 
   @Override
+  public Doctor getById(Long id) {
+
+    for (Doctor doctor : arrDoctor){
+
+      if(doctor.getId().equals(id)){
+        return doctor;
+      }
+    }
+    return null;
+  }
+
+  @Override
   public List<Doctor> getByName(Doctor doctor) {
 
     Predicate<Doctor> filterNurse = p -> p.getName().equalsIgnoreCase(doctor.getName());

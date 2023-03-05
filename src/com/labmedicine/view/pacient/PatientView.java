@@ -1,7 +1,8 @@
-package com.labmedicine.view;
+package com.labmedicine.view.pacient;
 
 import com.labmedicine.controller.PatientController;
 import com.labmedicine.model.Patient;
+import com.labmedicine.view.Menu;
 import com.labmedicine.view.utils.IsDate;
 import com.labmedicine.view.utils.InputGender;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PatientView {
+
   static PatientController patientController;
   static Menu menu;
 
@@ -26,8 +28,8 @@ public class PatientView {
     System.out.println("Selecione uma das opções abaixo");
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
-    System.out.println("4. Alterar Paciente");
     System.out.println("3. Pesquisar Paciente");
+    System.out.println("4. Alterar Paciente");
     System.out.println("9. Voltar para o Menu Principal");
     try{
       op = scanner.nextInt();
@@ -60,7 +62,6 @@ public class PatientView {
   }
 
   private void addPatient(){
-    Patient pat = new Patient();
 
     Patient patient = viewPatient();
     patient.setId(returnLastIdPatient());
@@ -72,17 +73,24 @@ public class PatientView {
     Scanner sc = new Scanner(System.in);
 
     System.out.println("Informe o Código do Paciente");
-    String op = sc.nextLine();
+    String cod = sc.nextLine();
+    Integer indice = patientController.indexPatient(Long.valueOf(cod));
 
-    patientController.existsPatient(Long.valueOf(op));
+    if( indice >= 0){
 
-    Patient vpatient = viewPatient();
+      Patient uPatient = viewPatient();
+      uPatient.setId(Long.valueOf(cod));
+      patientController.updatePatient(indice, uPatient);
+    }
 
-    patientController.updatePatient(0, vpatient);
+    System.out.println("Paciente não encontrado!");
+
+
   }
 
-  public Patient viewPatient(){
+  private Patient viewPatient(){
     Patient patient = new Patient();
+
     AllergyView allergyView = new AllergyView();
     CareListView careListView = new CareListView();
     Scanner sc = new Scanner(System.in);
@@ -109,7 +117,7 @@ public class PatientView {
   }
 
   private void getAllPatient(){
-    List<Patient> patientList= patientController.getAll();
+    List<Patient> patientList = patientController.getAll();
     renderizePatient(patientList);
 
   }
@@ -131,26 +139,32 @@ public class PatientView {
   private void renderizePatient(List<Patient> patientList){
     System.out.println("**Pacientes Cadastrados**");
     for(int i=0; i<patientList.size();i++){
-      System.out.print("Id: ");
-      System.out.println(patientList.get(i).getId());
-      System.out.print("Nome: ");
-      System.out.println(patientList.get(i).getName());
+      System.out.print("Id: "+ patientList.get(i).getId()+ " Nome: "+patientList.get(i).getName()+" ");
 
       System.out.print("Alergia(s): ");
-      for(int x=0; x<patientList.get(i).getAllergy().size();x++){
-        System.out.print(patientList.get(i).getAllergy().get(x).getNameAllergy()+", ");
+      try{
+        for(int x=0; x<patientList.get(i).getAllergy().size();x++){
+          System.out.print(patientList.get(i).getAllergy().get(x).getNameAllergy()+", ");
+        }
+      }catch(NullPointerException e) {
+
       }
-      System.out.println();
+
+      System.out.print(" ");
 
       System.out.print("Lista de Cuidado(s): ");
-      for(int x=0; x<patientList.get(i).getCareList().size();x++){
-        System.out.print(patientList.get(i).getCareList().get(x).getCareList()+", ");
+      try {
+        for (int x = 0; x < patientList.get(i).getCareList().size(); x++) {
+          System.out.print(patientList.get(i).getCareList().get(x).getCareList() + ", ");
+        }
+      }catch (NullPointerException e){
+
       }
       System.out.println();
     }
   }
 
-  public void opcaoInvalida(){
+  private void opcaoInvalida(){
     System.out.println("Opção Inválida, tente novamente");
     patientMenu();
   }

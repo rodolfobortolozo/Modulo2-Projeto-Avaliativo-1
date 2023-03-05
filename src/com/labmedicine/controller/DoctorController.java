@@ -1,6 +1,7 @@
 package com.labmedicine.controller;
 
 import com.labmedicine.model.Doctor;
+import com.labmedicine.model.Patient;
 import com.labmedicine.repository.DoctorRepository;
 
 import java.util.List;
@@ -18,21 +19,31 @@ public class DoctorController {
         }
     }
 
+    public boolean updateDoctor(Integer indice, Doctor doctor) {
+        try {
+            doctorRepository.update(indice, doctor);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     public List<Doctor> getAll(){
         return doctorRepository.getAll();
     }
 
-    public Boolean existsDoctor(Long id){
+    public Doctor getById(Long id){
+        return doctorRepository.getById(id);
+    }
+
+    public Integer indexDoctor(Long id){
 
         for(int i=0; i < getAll().size();i++){
-            Boolean res = getAll().get(i).getId().equals(id);
+            boolean res = getAll().get(i).getId().equals(id);
             if(res){
-                return true;
-            }else{
-                return false;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
     public Long returnLastIdDoctor(){

@@ -3,6 +3,7 @@ package com.labmedicine.model;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class Patient extends Person {
 
   private String emergencyContact;
@@ -11,9 +12,29 @@ public class Patient extends Person {
   private String healthInsurance;
   private Integer insuranceNumber;
   private LocalDate insuranceDate;
-  private String Status;
+  private Integer statusConsult;
+  private Integer qtdConsult = 0;
 
   public Patient() {
+  }
+
+  public Patient(Long id, String name, String cpf, LocalDate dateBirth, String gender, String phone,
+                 String emergencyContact, List<Allergy> allergy, List<CareList> careList, String healthInsurance,
+                 Integer insuranceNumber, LocalDate insuranceDate, Integer statusConsult, Integer qtdConsult) {
+    super.id = id;
+    super.name = name;
+    super.cpf = cpf;
+    super.dateBirth = dateBirth;
+    super.gender = gender;
+    super.phone = phone;
+    this.emergencyContact = emergencyContact;
+    this.allergy = allergy;
+    this.careList = careList;
+    this.healthInsurance = healthInsurance;
+    this.insuranceNumber = insuranceNumber;
+    this.insuranceDate = insuranceDate;
+    this.statusConsult = statusConsult;
+    this.qtdConsult = qtdConsult;
   }
 
   public String getEmergencyContact() {
@@ -64,25 +85,39 @@ public class Patient extends Person {
     this.insuranceDate = insuranceDate;
   }
 
-  public String getStatus() {
-    return Status;
+  public Integer getStatusConsult() {
+    return statusConsult;
   }
 
-  public void setStatus(String status) {
-    Status = status;
+  public void setStatusConsult(Integer statusConsult) {
+
+    if(statusConsult == null){
+      this.statusConsult = 0;
+    }
+    this.statusConsult = statusConsult;
+  }
+
+  public Integer getQtdConsult() {
+    return qtdConsult;
+  }
+
+  public void setQtdConsult(Integer qtdConsult) {
+    this.qtdConsult = qtdConsult;
   }
 
   @Override
   public String toString() {
     return "Patient{" +
-            "idPatient=" + id +
-            ", emergencyContact='" + emergencyContact + '\'' +
+            ", qtdConsult=" + qtdConsult + '\'' +
+    "emergencyContact='" + emergencyContact + '\'' +
             ", allergy=" + allergy +
             ", careList=" + careList +
             ", healthInsurance='" + healthInsurance + '\'' +
             ", insuranceNumber=" + insuranceNumber +
             ", insuranceDate=" + insuranceDate +
-            ", Status='" + Status + '\'' +
+            ", Status='" + statusConsult + '\'' +
+
+            ", id=" + id +
             ", name='" + name + '\'' +
             ", gender='" + gender + '\'' +
             ", dateBirth=" + dateBirth +
