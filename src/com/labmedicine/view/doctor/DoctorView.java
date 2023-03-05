@@ -1,8 +1,9 @@
-package com.labmedicine.view;
+package com.labmedicine.view.doctor;
 
 import com.labmedicine.controller.DoctorController;
 
 import com.labmedicine.model.Doctor;
+import com.labmedicine.view.Menu;
 import com.labmedicine.view.utils.IsDate;
 import com.labmedicine.view.utils.InputGender;
 
@@ -10,7 +11,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class DoctorView {
+public class  DoctorView {
   static DoctorController doctorController;
   static Menu menu;
 
@@ -28,6 +29,7 @@ public class DoctorView {
     System.out.println("1. Cadastrar");
     System.out.println("2. Listar Todos");
     System.out.println("3. Pesquisar Médico");
+    System.out.println("4. Alterar Médico");
     System.out.println("9. Voltar para o Menu Principal");
     try{
       op = scanner.nextInt();
@@ -47,6 +49,10 @@ public class DoctorView {
         getDoctorbyName();
         doctorMenu();
         break;
+      case 4:
+        updateDoctor();
+        doctorMenu();
+        break;
       case 9:
         menu.mainMenu();
         break;
@@ -56,6 +62,33 @@ public class DoctorView {
   }
 
   private void addDoctor(){
+    Doctor doctor = viewDoctor();
+    doctor.setId(doctorController.returnLastIdDoctor());
+
+    doctorController.save(doctor);
+    doctorMenu();
+  }
+
+  private void updateDoctor(){
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("Informe o Código do Médico");
+    String cod = sc.nextLine();
+    Integer indice = doctorController.indexDoctor(Long.valueOf(cod));
+
+    if( indice >= 0){
+
+      Doctor uDoctor = viewDoctor();
+      uDoctor.setId(Long.valueOf(cod));
+      doctorController.updateDoctor(indice, uDoctor);
+    }
+
+    System.out.println("Médico não encontrado!");
+
+
+  }
+
+  private Doctor viewDoctor(){
     Doctor doctor = new Doctor();
     Scanner sc = new Scanner(System.in);
     IsDate dt = new IsDate();
@@ -82,8 +115,8 @@ public class DoctorView {
     Integer opSpec = renderizeSpecialization();
     doctor.setSpecialization(opSpec);
 
-    doctorController.save(doctor);
-    doctorMenu();
+    return doctor;
+
   }
 
   private Integer renderizeSpecialization(){
@@ -136,9 +169,7 @@ public class DoctorView {
   private void renderizeDoctor(List<Doctor> doctorList){
     System.out.println("**Médicos Cadastrados**");
     for(int i=0; i<doctorList.size();i++){
-      System.out.print("Nome: ");
-      System.out.println(doctorList.get(i).getName());
-
+      System.out.println("Id:"+ doctorList.get(i).getId()+ " Nome: " + doctorList.get(i).getName()+" CRM: "+doctorList.get(i).getCrm());
 
     }
   }

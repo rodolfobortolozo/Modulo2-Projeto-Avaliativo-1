@@ -13,7 +13,7 @@ public class IsInteger {
             }catch (Exception e){
                 System.out.println("Não é um número válido, tente novamente");
                 getIsInteger();
-                return null;
+                return 0;
             }
 
     }

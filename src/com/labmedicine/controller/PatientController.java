@@ -35,17 +35,15 @@ public class PatientController {
     return patientRepository.getById(id);
   }
 
-  public Boolean existsPatient(Long id){
+  public Integer indexPatient(Long id){
 
     for(int i=0; i < getAll().size();i++){
-      Boolean res = getAll().get(i).getId().equals(id);
+      boolean res = getAll().get(i).getId().equals(id);
       if(res){
-        return true;
-      }else{
-        return false;
+        return i;
       }
     }
-    return false;
+    return -1;
   }
 
   public Long returnLastIdPatient(){
@@ -54,5 +52,9 @@ public class PatientController {
 
   public List<Patient> getPatientbyName(Patient patient){
     return patientRepository.getByName(patient);
+  }
+
+  public List<Patient> getByStatusConsult(Integer op){
+    return patientRepository.getByStatusConsult(op);
   }
 }

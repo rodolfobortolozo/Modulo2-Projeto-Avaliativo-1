@@ -56,8 +56,6 @@ public class NurseRepository implements PersonInterface<Nurse> {
     for (Nurse nurse : arrNurse){
       if(nurse.getId().equals(id)){
         return nurse;
-      }else{
-        return null;
       }
     }
     return null;

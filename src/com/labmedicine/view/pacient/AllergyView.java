@@ -1,4 +1,4 @@
-package com.labmedicine.view;
+package com.labmedicine.view.pacient;
 
 import com.labmedicine.controller.AllergyController;
 import com.labmedicine.model.Allergy;

@@ -19,6 +19,14 @@ public class DoctorController {
         }
     }
 
+    public boolean updateDoctor(Integer indice, Doctor doctor) {
+        try {
+            doctorRepository.update(indice, doctor);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     public List<Doctor> getAll(){
         return doctorRepository.getAll();
     }
@@ -30,11 +38,9 @@ public class DoctorController {
     public Integer indexDoctor(Long id){
 
         for(int i=0; i < getAll().size();i++){
-            Boolean res = getAll().get(i).getId().equals(id);
+            boolean res = getAll().get(i).getId().equals(id);
             if(res){
-                return 1;
-            }else{
-                return -1;
+                return i;
             }
         }
         return -1;

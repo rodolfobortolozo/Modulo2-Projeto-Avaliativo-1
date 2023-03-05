@@ -53,12 +53,10 @@ public class PatientRepository implements PersonInterface<Patient> {
 
   @Override
   public Patient getById(Long id) {
-    
+
     for (Patient patient : arrPatient){
       if(patient.getId().equals(id)){
         return patient;
-      }else{
-        return null;
       }
     }
     return null;
@@ -73,6 +71,18 @@ public class PatientRepository implements PersonInterface<Patient> {
   public List<Patient> getByName(Patient patient) {
 
     Predicate<Patient> filterPatient = p -> p.getName().equalsIgnoreCase(patient.getName());
+
+    List<Patient> patientFiltered = arrPatient.stream()
+            .filter(filterPatient)
+            .collect(Collectors.toList());
+
+    return patientFiltered;
+  }
+
+  public List<Patient> getByStatusConsult(Integer op) {
+
+    Predicate<Patient> filterPatient = p -> p.getStatusConsult().equals(op);
+
     List<Patient> patientFiltered = arrPatient.stream()
             .filter(filterPatient)
             .collect(Collectors.toList());
